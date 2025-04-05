@@ -1,6 +1,7 @@
 package com.board.taskboard.controller;
 
 import com.board.taskboard.model.Task;
+import com.board.taskboard.model.User;
 import com.board.taskboard.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +20,32 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @GetMapping("/health")
+    public String getHealth(){
+        return "Ok!";
+    }
+
     @GetMapping("/Tasks")
-    public String getAllTasks(Model model) {
-        List<Task> tasks = taskService.getAllTasks();
-        model.addAttribute("Tasks", tasks);
-        return "index";
+    public List<Task> getAllTasks() {
+        return taskService.getAllTasks();
     }
 
     @PostMapping("/Tasks")
     public String createTask(Task task) {
+        //@RequestParam(required = true)String title, @RequestParam(required = true)String description, @RequestParam(required = true)String status, @RequestParam(required = true)long userId
+        /*Task task = new Task();
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setStatus(status);
+        User user = new User();
+        if(userId == 0){
+            userId = 1;
+        }
+        user.setId(userId);
+        task.setUser(user);
+
+         */
+
         taskService.saveTask(task);
         return "redirect:/Tasks";
     }
