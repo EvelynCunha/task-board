@@ -27,25 +27,12 @@ public class TaskController {
 
     @GetMapping("/Tasks")
     public List<Task> getAllTasks() {
+
         return taskService.getAllTasks();
     }
 
     @PostMapping("/Tasks")
     public String createTask(Task task) {
-        //@RequestParam(required = true)String title, @RequestParam(required = true)String description, @RequestParam(required = true)String status, @RequestParam(required = true)long userId
-        /*Task task = new Task();
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setStatus(status);
-        User user = new User();
-        if(userId == 0){
-            userId = 1;
-        }
-        user.setId(userId);
-        task.setUser(user);
-
-         */
-
         taskService.saveTask(task);
         return "redirect:/Tasks";
     }
